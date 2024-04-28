@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://djygk47xswp6m"]
+
+[ext_resource type="AudioStream" uid="uid://cxk6w8mpu1jnh" path="res://BGM/Arctic Monkeys - I Wanna Be Yours.mp3" id="1_cgcth"]
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D"]
+stream = ExtResource("1_cgcth")
+autoplay = true

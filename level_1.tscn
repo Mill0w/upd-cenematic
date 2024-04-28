@@ -1,0 +1,228 @@
+[gd_scene load_steps=10 format=3 uid="uid://bibtkosphrhw0"]
+
+[ext_resource type="Script" path="res://levels/level_1.gd" id="1_q3eeq"]
+[ext_resource type="Texture2D" uid="uid://4rl1ar2xs2rk" path="res://pokemon.png" id="2_fexy7"]
+[ext_resource type="Script" path="res://levels/Sprite2D.gd" id="3_hp177"]
+
+[sub_resource type="Animation" id="Animation_0elx7"]
+resource_name = "walking_forward"
+length = 0.5
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.00331826, 0.13791, 0.269146, 0.408889),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [1, 0, 3, 2]
+}
+
+[sub_resource type="Animation" id="Animation_fuugt"]
+resource_name = "walking_right"
+length = 0.5
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [8, 9, 10, 11, 9]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_4k52i"]
+_data = {
+"walking_forward": SubResource("Animation_0elx7"),
+"walking_right": SubResource("Animation_fuugt")
+}
+
+[sub_resource type="Animation" id="Animation_nj6x3"]
+resource_name = "fade_in"
+length = 4.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Transition/ColorRect:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 3.97232),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Transition/ColorRect:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(4.02112),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Transition/ColorRect/Manual/Skip:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(2.21589),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Transition/ColorRect/Manual/Skip/Fast_F:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(2.21589),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Transition/ColorRect/Manual/Skip/Fast_F/Pause:visible")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(2.21589),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_dl316"]
+resource_name = "fade_out"
+length = 3.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Transition/ColorRect:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 2.8317),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Transition/ColorRect:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_vdgvh"]
+_data = {
+"fade_in": SubResource("Animation_nj6x3"),
+"fade_out": SubResource("Animation_dl316")
+}
+
+[node name="Node2D" type="Node2D"]
+script = ExtResource("1_q3eeq")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(578, 322)
+
+[node name="Sprite2D" type="Sprite2D" parent="Camera2D"]
+texture_filter = 1
+position = Vector2(-2.99998, 6.01564)
+scale = Vector2(4.92188, 4.37451)
+texture = ExtResource("2_fexy7")
+hframes = 4
+vframes = 4
+frame = 8
+script = ExtResource("3_hp177")
+
+[node name="PlayerAnimation" type="AnimationPlayer" parent="Camera2D/Sprite2D"]
+libraries = {
+"": SubResource("AnimationLibrary_4k52i")
+}
+
+[node name="Transition" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_vdgvh")
+}
+
+[node name="ColorRect" type="ColorRect" parent="Transition"]
+offset_left = -688.0
+offset_top = -336.0
+offset_right = 1903.0
+offset_bottom = 1220.0
+color = Color(0, 0, 0, 1)
+
+[node name="Auto" type="Button" parent="Transition/ColorRect"]
+layout_mode = 0
+offset_left = 174.0
+offset_top = 174.0
+offset_right = 544.0
+offset_bottom = 240.0
+theme_override_font_sizes/font_size = 38
+text = "Auto"
+
+[node name="Manual" type="Button" parent="Transition/ColorRect"]
+layout_mode = 0
+offset_left = 2011.0
+offset_top = 185.0
+offset_right = 2400.0
+offset_bottom = 246.0
+theme_override_font_sizes/font_size = 38
+text = "Manual"
+
+[node name="Skip" type="Button" parent="Transition/ColorRect/Manual"]
+layout_mode = 0
+offset_left = -151.0
+offset_top = 724.0
+offset_right = 398.0
+offset_bottom = 785.0
+theme_override_font_sizes/font_size = 38
+text = "Press to Skip"
+
+[node name="Fast_F" type="Button" parent="Transition/ColorRect/Manual/Skip"]
+layout_mode = 0
+offset_left = 1.0
+offset_top = 85.0
+offset_right = 552.0
+offset_bottom = 146.0
+theme_override_font_sizes/font_size = 38
+text = "Press to Fast Foward"
+
+[node name="Pause" type="Button" parent="Transition/ColorRect/Manual/Skip/Fast_F"]
+layout_mode = 0
+offset_left = 2.0
+offset_top = 83.0
+offset_right = 549.0
+offset_bottom = 144.0
+theme_override_font_sizes/font_size = 38
+text = "Press to Pause Cinematic"
+
+[connection signal="animation_finished" from="Transition" to="Camera2D/Sprite2D" method="_on_transition_animation_finished"]
+[connection signal="pressed" from="Transition/ColorRect/Auto" to="." method="_on_auto_pressed"]
+[connection signal="pressed" from="Transition/ColorRect/Manual" to="." method="_on_manual_pressed"]
+[connection signal="pressed" from="Transition/ColorRect/Manual/Skip" to="." method="_on_skip_pressed"]
+[connection signal="pressed" from="Transition/ColorRect/Manual/Skip/Fast_F" to="." method="_on_fast_foward_pressed"]
+[connection signal="pressed" from="Transition/ColorRect/Manual/Skip/Fast_F/Pause" to="." method="_on_pause_cinematic_pressed"]
